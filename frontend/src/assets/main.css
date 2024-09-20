@@ -1,0 +1,52 @@
+@import './base.css';
+
+:root {
+  --primary-color: hsl(160, 100%, 37%);
+  --primary-color-light: hsla(160, 100%, 37%, 0.2);
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#app {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary-color);
+  transition: background-color 0.3s ease;
+  padding: 0.2em 0.4em;
+  border-radius: 0.25em;
+}
+
+a:hover,
+a:focus {
+  background-color: var(--primary-color-light);
+}
+
+@media (min-width: 640px) {
+  #app {
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    place-items: center;
+  }
+
+  #app {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+}
