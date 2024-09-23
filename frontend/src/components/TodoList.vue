@@ -4,9 +4,11 @@
       <div class="relative px-4 py-8 bg-white shadow-lg sm:rounded-3xl sm:p-10">
         <h1 class="text-2xl sm:text-3xl font-bold mb-6 text-center text-indigo-600">Todo List</h1>
         
+        <!-- Loading and error states -->
         <div v-if="todoStore.loading" class="mb-4 text-center text-gray-600">Loading...</div>
         <div v-if="todoStore.error" class="mb-4 text-center text-red-500">{{ todoStore.error }}</div>
-        
+
+        <!-- New Todo Input -->
         <div class="mb-6 space-y-4">
           <input 
             v-model="newTodo.title" 
@@ -25,13 +27,13 @@
             <button 
               @click="addTodo" 
               class="w-full sm:flex-grow bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50" 
-              :disabled="todoStore.loading"
-            >
+              :disabled="todoStore.loading">
               Add Todo
             </button>
           </div>
         </div>
-        
+
+        <!-- Todo List -->
         <ul class="space-y-4">
           <li v-for="todo in todoStore.todos" :key="todo.id" class="bg-gray-50 p-4 rounded-lg shadow">
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
