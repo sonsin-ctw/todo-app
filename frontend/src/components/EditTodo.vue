@@ -3,8 +3,11 @@
     <div class="relative px-4 py-10 mx-auto w-full max-w-3xl">
       <div class="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-12">
         <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-8 text-center text-indigo-600">Edit Todo</h2>
+        
+        <!-- Form for editing Todo -->
         <form @submit.prevent="saveTodo" class="space-y-6">
           <div>
+            <!-- Title -->
             <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
             <input 
               id="title"
@@ -14,6 +17,8 @@
               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             >
           </div>
+
+           <!-- Priority -->
           <div>
             <label for="priority" class="block text-sm font-medium text-gray-700">Priority</label>
             <select 
@@ -26,6 +31,8 @@
               <option value="high">High</option>
             </select>
           </div>
+
+          <!-- Status -->
           <div>
             <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
             <select 
@@ -38,6 +45,8 @@
               <option value="completed">Completed</option>
             </select>
           </div>
+
+          <!-- Cancel and Save buttons -->
           <div class="flex justify-end space-x-4 mt-8">
             <button 
               type="button" 
@@ -71,16 +80,22 @@
       const router = useRouter()
       const todoStore = useTodoStore()
       
-  
+      // Get todo id from route
       const todoId = parseInt(route.params.id)
+
+      // Search todo from store
       const todo = todoStore.todos.find(t => t.id === todoId)
+
+      // Create a variable editedTodo which is a copy of the todo you want to edit (uses ref to handle changes).
       const editedTodo = ref(todo ? { ...todo } : { title: '', priority: 'low', status: 'pending' })
-  
+
+      // todo edit record function      
       const saveTodo = async () => {
         await todoStore.updateTodo(editedTodo.value)
         router.push({ name: 'TodoDetails', params: { id: todoId } })
       }
-  
+
+      // Undo edit function
       const cancel = () => {
         router.push({ name: 'TodoDetails', params: { id: todoId } })
       }
