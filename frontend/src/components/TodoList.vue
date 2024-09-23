@@ -102,26 +102,33 @@ import { useTodoStore } from '../stores/todo'
 
 export default {
   setup() {
+    // Create a variable linked to the store.
     const todoStore = useTodoStore()
+    // Define the newTodo structure to use to add new tasks.
     const newTodo = ref({ title: '', priority: 'medium', status: 'pending' })
 
+    // When the component is mounted, the fetchTodos() function is called to fetch the todo list.
     onMounted(() => {
       todoStore.fetchTodos()
     })
-
+    
+    // New Todo add function
     const addTodo = async () => {
       if (newTodo.value.title.trim() === '') {
         alert('Please enter a title for the todo')
         return
       }
       await todoStore.addTodo(newTodo.value)
+      // Reset form when item is successfully added.
       newTodo.value = { title: '', priority: 'medium', status: 'pending' }
     }
 
+    // Function to update the state of todo when it changes.
     const updateTodo = async (todo) => {
       await todoStore.updateTodo(todo)
     }
 
+    // Function to delete Todo by id
     const deleteTodo = async (id) => {
       await todoStore.deleteTodo(id)
     }
